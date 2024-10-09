@@ -2,8 +2,8 @@ import readline from 'readline';
 import { getUsername } from './cli/args.js';
 import { changeDirectory } from './fs/cd.js';
 import { ls } from './fs/ls.js';
-import { compress } from './compress/compress.js';
-import { decompress } from './compress/decompress.js';
+import { compressFile } from './compress/compress.js';
+import { decompressFile } from './compress/decompress.js';
 import { up } from './fs/up.js';
 import { usernameInfo } from './os/username.js';
 import { cat } from './fs/cat.js';
@@ -17,15 +17,16 @@ import { homedirInfo } from './os/homedir.js';
 import { architectureInfo } from './os/architecture.js';
 import { hashFile } from './hash/hash.js';
 
-const username = getUsername();
-console.log(`Welcome to the File Manager, ${username}!`);
-console.log(`You are currently in ${process.cwd()}`);
-
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
   prompt: '> '
 });
+
+const username = getUsername();
+console.log('Command-line arguments:', process.argv);
+console.log(`Welcome to the File Manager, ${username}!`);
+console.log(`You are currently in ${process.cwd()}`);
 
 const handleCommand = async (line) => {
   const [cmd, ...args] = line.trim().split(' ');
@@ -56,10 +57,18 @@ const handleCommand = async (line) => {
         await cp(args, process.cwd());
         break;
       case 'compress':
-        await compress(args, process.cwd());
+        if (args.length !== 2) {
+          console.log('Invalid input');
+        } else {
+          compressFile(args[0], args[1]);
+        }
         break;
       case 'decompress':
-        await decompress(args, process.cwd());
+        if (args.length !== 2) {
+          console.log('Invalid input');
+        } else {
+          decompressFile(args[0], args[1]);
+        }
         break;
       case 'os':
         switch (args[0]) {

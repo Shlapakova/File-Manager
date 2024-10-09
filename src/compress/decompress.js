@@ -1,11 +1,19 @@
-import fs from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
 import { createBrotliDecompress } from 'zlib';
-import path from 'path';
 
-export const decompress = async (source, destination) => {
-    const sourceStream = fs.createReadStream(source);
-    const destinationStream = fs.createWriteStream(destination);
-    const brotli = createBrotliDecompress();
+export const decompressFile = (inputFilePath, outputFilePath) => {
+    const readStream = createReadStream(inputFilePath);
+    const brotliStream = createBrotliDecompress();
+    const writeStream = createWriteStream(outputFilePath);
 
-    sourceStream.pipe(brotli).pipe(destinationStream);
+    readStream
+        .pipe(brotliStream)
+        .pipe(writeStream)
+        .on('finish', () => {
+            console.log(`File decompressed to ${outputFilePath}`);
+        })
+        .on('error', () => {
+            console.error('Operation failed');
+        });
 };
+
