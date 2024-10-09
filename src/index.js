@@ -11,6 +11,10 @@ import { add } from './fs/add.js';
 import { rn } from './fs/rn.js';
 import { rm } from './fs/rm.js';
 import { cp } from './fs/cp.js';
+import { eol } from './os/eol.js';
+import { cpusInfo } from './os/cpus.js';
+import { homedirInfo } from './os/homedir.js';
+import { architectureInfo } from './os/architecture.js';
 
 const username = getUsername();
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -31,9 +35,6 @@ const handleCommand = async (line) => {
         break;
       case 'cd':
         await changeDirectory(args[0]);
-        break;
-      case '--username':
-        await usernameInfo(args, process.cwd());
         break;
       case 'ls':
         await ls(args, process.cwd());
@@ -58,6 +59,27 @@ const handleCommand = async (line) => {
         break;
       case 'decompress':
         await decompress(args, process.cwd());
+        break;
+      case 'os':
+        switch (args[0]) {
+          case '--EOL':
+            await eol(args, process.cwd());
+            break;
+          case '--cpus':
+            await cpusInfo(args, process.cwd());
+            break;
+          case '--homedir':
+            await homedirInfo(args, process.cwd());
+            break;
+          case '--username':
+            await usernameInfo(args, process.cwd());
+            break;
+          case '--architecture':
+            await architectureInfo(args, process.cwd());
+            break;
+          default:
+            console.log('Invalid input');
+        }
         break;
       case '.exit':
         console.log(`Thank you for using File Manager, ${username}, goodbye!`);
