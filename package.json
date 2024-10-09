@@ -1,5 +1,13 @@
 {
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "A simple File Manager in Node.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js"
-  }
+  },
+  "type": "module",
+  "dependencies": {}
 }
+
+
