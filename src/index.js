@@ -5,6 +5,7 @@ import { ls } from './fs/ls.js';
 import { compress } from './compress/compress.js';
 import { decompress } from './compress/decompress.js';
 import { up } from './fs/up.js';
+import { usernameInfo } from './os/username.js';
 
 const username = getUsername();
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -25,6 +26,9 @@ const handleCommand = async (line) => {
         break;
       case 'cd':
         await changeDirectory(args[0]);
+        break;
+      case '--username':
+        await usernameInfo(args, process.cwd());
         break;
       case 'ls':
         await ls(args, process.cwd());
