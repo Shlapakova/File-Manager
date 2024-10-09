@@ -12,3 +12,4 @@ export const cat = async (args, currentDir) => {
         readStream.on('error', reject);
     });
 };
+

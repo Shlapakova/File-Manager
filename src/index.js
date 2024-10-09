@@ -6,6 +6,7 @@ import { compress } from './compress/compress.js';
 import { decompress } from './compress/decompress.js';
 import { up } from './fs/up.js';
 import { usernameInfo } from './os/username.js';
+import { cat } from './fs/cat.js';
 
 const username = getUsername();
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -32,6 +33,9 @@ const handleCommand = async (line) => {
         break;
       case 'ls':
         await ls(args, process.cwd());
+        break;
+      case 'cat':
+        await cat(args, process.cwd());
         break;
       case 'compress':
         await compress(args, process.cwd());
