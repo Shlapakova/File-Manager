@@ -14,3 +14,4 @@ export const cp = async (args, currentDir) => {
         writeStream.on('error', reject);
     });
 };
+

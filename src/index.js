@@ -10,6 +10,7 @@ import { cat } from './fs/cat.js';
 import { add } from './fs/add.js';
 import { rn } from './fs/rn.js';
 import { rm } from './fs/rm.js';
+import { cp } from './fs/cp.js';
 
 const username = getUsername();
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -48,6 +49,9 @@ const handleCommand = async (line) => {
         break;
       case 'rm':
         await rm(args, process.cwd());
+        break;
+      case 'cp':
+        await cp(args, process.cwd());
         break;
       case 'compress':
         await compress(args, process.cwd());
