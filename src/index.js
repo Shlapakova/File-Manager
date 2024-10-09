@@ -15,6 +15,7 @@ import { eol } from './os/eol.js';
 import { cpusInfo } from './os/cpus.js';
 import { homedirInfo } from './os/homedir.js';
 import { architectureInfo } from './os/architecture.js';
+import { hashFile } from './hash/hash.js';
 
 const username = getUsername();
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -76,6 +77,9 @@ const handleCommand = async (line) => {
             break;
           case '--architecture':
             await architectureInfo(args, process.cwd());
+            break;
+          case 'hash':
+            await hashFile(args, process.cwd());
             break;
           default:
             console.log('Invalid input');
